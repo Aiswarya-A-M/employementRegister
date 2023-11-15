@@ -1,9 +1,9 @@
-
 let startTime=new Date();
 import inquirer from "inquirer";
 import fs from "fs";
 import queryDB from "./queryDB.js";
 import detailsCheck from "./detailsCheck.js";
+import { findAge } from "./addDetails.js";
 
 export default async function updateData(info) {
   detailsCheck();
@@ -51,7 +51,7 @@ async function updateDetails(employee, info) {
         message: "Please enter your department",
       },
     ]);
-    let age=age(empDetails.empDOB);
+    let age=findAge(empDetails.empDOB);
     employee.empName = updatedData.empName;
     employee.empDOB = updatedData.empDOB;
     employee.empDepartment = updatedData.empDepartment;
@@ -98,12 +98,12 @@ function timeDifference(endTime, startTime) {
     console.log(`your session duration is,${secondsDifference}S`);
 }
 
-function age(dob){
-  const dobArray=dob.split('/');
-  const birthDate=new Date(dobArray[2],dobArray[1]-1,dobArray[0]);
-  const currentDate=new Date();
-  const age=currentDate.getFullYear()-birthDate.getFullYear();
-  return age;
-}
+// function age(dob){
+//   const dobArray=dob.split('/');
+//   const birthDate=new Date(dobArray[2],dobArray[1]-1,dobArray[0]);
+//   const currentDate=new Date();
+//   const age=currentDate.getFullYear()-birthDate.getFullYear();
+//   return age;
+// }
 
 queryDB(updateData);

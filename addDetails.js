@@ -1,8 +1,8 @@
-let startTime=new Date();
 import inquirer from "inquirer";
 import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 import queryDB from "./queryDB.js";
+
 
 export default async function addData(info) {
   try {
@@ -72,7 +72,6 @@ function errorWriting(errorStr){
     }
   });
 }
-
 function timeDifferenceAdd(endTime, startTime) {
   let difference = endTime.getTime() - startTime.getTime();
   let daysDifference = Math.floor(difference/1000/60/60/24);
@@ -84,7 +83,8 @@ function timeDifferenceAdd(endTime, startTime) {
   let secondsDifference = Math.floor(difference/1000);
   console.log(`your session duration is,${secondsDifference}S`);
 }
-function findAge(dob){
+
+export function findAge(dob){
   const dobArray=dob.split('/');
   const birthDate=new Date(dobArray[2],dobArray[1]-1,dobArray[0]);
   const currentDate=new Date();
