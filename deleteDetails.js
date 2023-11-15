@@ -1,7 +1,7 @@
 import inquirer from "inquirer";
 import fs from "fs";
-import queryDB from "../../queryDB.js";
-import detailsCheck from "../../detailsCheck.js";
+import queryDB from "./queryDB.js";
+import detailsCheck from "./detailsCheck.js";
 
 export default async function deleteDetails(info) {
   detailsCheck();

@@ -41,5 +41,5 @@ function performFunctions() {
 }
 function exitFromSession(){
   console.log("Your session duration is 20 minute");
-  
+
 }

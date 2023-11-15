@@ -3,7 +3,6 @@ import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 import queryDB from "./queryDB.js";
 
-
 export default async function addData(info) {
   try {
     const empDetails = await inquirer.prompt([
