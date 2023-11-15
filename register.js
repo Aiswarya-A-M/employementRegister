@@ -3,7 +3,7 @@ import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 import { error } from "console";
 
-const DBPath = "./details.json";
+const DBPath = "./DB.json";
 const errorFilePath = "./error.txt";
 
 console.log("welcome");
