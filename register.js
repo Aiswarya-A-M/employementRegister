@@ -3,7 +3,7 @@ import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 import { error } from "console";
 
-const detailsStorePath = "./detailsStore.json";
+const detailsFilePath = "./details.json";
 const errorFilePath = "./error.txt";
 const empInfo = getDetails();
 console.log("welcome");
@@ -73,14 +73,14 @@ function addEmployeeDetails() {
     console.log("Employee details added successfully");
     showOptions();
   } catch (error) {
-    console.log(`something went wrong taking details ${error.message}`);
+    console.log(`error occurred while adding details ${error.message}`);
     errorWriting(error);
   }
 }
 
-function getAge(dob) {
-  const dobArray = dob.split("/");
-  const birthDate = new Date(dobArray[2], dobArray[1] - 1, dobArray[0]);
+function getAge(DOB) {
+  const DOBArray = DOB.split("/");
+  const birthDate = new Date(DOBArray[2], DOBArray[1] - 1, DOBArray[0]);
   const currentDate = new Date();
   const age = currentDate.getFullYear() - birthDate.getFullYear();
   return age;
@@ -88,20 +88,20 @@ function getAge(dob) {
 
 function getDetails() {
   try {
-    const data = fs.readFileSync(detailsStorePath, "utf8");
+    const data = fs.readFileSync(detailsFilePath, "utf8");
     return JSON.parse(data);
   } catch (error) {
-    console.log(`something went wrong taking details from DB ${error.message}`);
+    console.log(`error occurred while taking details ${error.message}`);
     errorWriting(error);
   }
 }
 
 function addDetails(empInfo) {
   try {
-    fs.writeFileSync(detailsStorePath, JSON.stringify(empInfo));
+    fs.writeFileSync(detailsFilePath, JSON.stringify(empInfo));
   } catch {
     errorWriting(error);
-    console.log(`error occurred while adding details to DB-${error.message}`);
+    console.log(`error occurred while adding details to JSON file-${error.message}`);
   }
 }
 
@@ -141,7 +141,7 @@ function updateEmployeeDetails() {
     console.log("no employee exist");
     showOptions();
   } catch (error) {
-    console.log(`something went wrong updating details ${error.message}`);
+    console.log(`error occurred while updating details ${error.message}`);
     errorWriting(error);
   }
 }
@@ -161,7 +161,7 @@ function deleteEmployeeDetails() {
     console.log("no employee exist");
     showOptions();
   } catch (error) {
-    console.log(`something went wrong deleting details ${error.message}`);
+    console.log(`error occurred while deleting details ${error.message}`);
     errorWriting(error);
   }
 }
@@ -177,7 +177,7 @@ function viewEmployeeDetails() {
     console.log(employee);
     showOptions();
   } catch (error) {
-    console.log(`something went wrong view details ${error.message}`);
+    console.log(`error occurred while displaying details ${error.message}`);
     errorWriting(error);
   }
 }
@@ -205,7 +205,7 @@ function viewDepartmentDetails() {
     showOptions();
   } catch (error) {
     console.log(
-      `something went wrong view department details ${error.message}`
+      `error occurred while displaying department details ${error.message}`
     );
     errorWriting(error);
   }
