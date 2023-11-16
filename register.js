@@ -101,7 +101,9 @@ function addDetails(empInfo) {
     fs.writeFileSync(detailsFilePath, JSON.stringify(empInfo));
   } catch {
     errorWriting(error);
-    console.log(`error occurred while adding details to JSON file-${error.message}`);
+    console.log(
+      `error occurred while adding details to JSON file-${error.message}`
+    );
   }
 }
 
