@@ -64,7 +64,6 @@ function addEmployeeDetails() {
     const employeeIndex = empInfo.findIndex(
       (obj) => obj.empName === details.empName
     );
-
     if (employeeIndex !== -1) {
       console.log("empName Exist");
       return;
@@ -119,7 +118,6 @@ function updateEmployeeDetails() {
     const updatedEmployee = empInfo.find(
       (employee) => employee.empId === empId
     );
-
     if (updatedEmployee) {
       const updatedName = readlineSync.question(
         `please enter name  ${updatedEmployee.empName}: `
@@ -152,7 +150,6 @@ function deleteEmployeeDetails() {
     const employeeIndex = empInfo.findIndex(
       (employee) => employee.empId === empId
     );
-
     if (employeeIndex !== -1) {
       empInfo.splice(employeeIndex, 1);
       addDetails(empInfo);
@@ -170,7 +167,6 @@ function viewEmployeeDetails() {
   try {
     const empId = readlineSync.question("Please enter employee id");
     const employee = empInfo.find((employee) => employee.empId === empId);
-
     if (!employee) {
       console.log("No employee exist");
       return;
@@ -188,7 +184,6 @@ function viewDepartmentDetails() {
       "Please enter employee department"
     );
     let count = 0;
-
     empInfo.forEach((employee) => {
       if (employee.empDepartment === empDepartment) {
         console.log(employee);
