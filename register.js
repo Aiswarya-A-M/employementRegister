@@ -66,11 +66,12 @@ function addEmployeeDetails() {
     );
     if (employeeIndex !== -1) {
       console.log("empName Exist");
-      return;
+      showOptions();
     }
     empInfo.push(details);
     addDetails(empInfo);
     console.log("Employee details added successfully");
+    showOptions();
   } catch (error) {
     console.log(`something went wrong taking details ${error.message}`);
     errorWriting(error);
@@ -135,9 +136,10 @@ function updateEmployeeDetails() {
       updatedEmployee.empDepartment = updatedDepartment;
       addDetails(empInfo);
       console.log("Employee details updated successfully");
-      return;
+      showOptions();
     }
     console.log("no employee exist");
+    showOptions();
   } catch (error) {
     console.log(`something went wrong updating details ${error.message}`);
     errorWriting(error);
@@ -154,9 +156,10 @@ function deleteEmployeeDetails() {
       empInfo.splice(employeeIndex, 1);
       addDetails(empInfo);
       console.log("delete employee successfully");
-      return;
+      showOptions();
     }
     console.log("no employee exist");
+    showOptions();
   } catch (error) {
     console.log(`something went wrong deleting details ${error.message}`);
     errorWriting(error);
@@ -169,9 +172,10 @@ function viewEmployeeDetails() {
     const employee = empInfo.find((employee) => employee.empId === empId);
     if (!employee) {
       console.log("No employee exist");
-      return;
+      showOptions();
     }
     console.log(employee);
+    showOptions();
   } catch (error) {
     console.log(`something went wrong view details ${error.message}`);
     errorWriting(error);
@@ -195,8 +199,10 @@ function viewDepartmentDetails() {
       console.log(
         `number of employees in ${empDepartment} department" , ${count}`
       );
+      showOptions();
     }
     console.log(`No employees under ${empDepartment} department`);
+    showOptions();
   } catch (error) {
     console.log(
       `something went wrong view department details ${error.message}`
@@ -209,5 +215,4 @@ function exitFromSession() {
   const endTime = new Date().getMinutes();
   const totalTime = Math.floor(endTime - startTime);
   console.log(`Your session duration: ${totalTime} minutes.`);
-  showOptions();
 }
