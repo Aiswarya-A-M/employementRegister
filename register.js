@@ -3,9 +3,9 @@ import fs from "fs";
 import { v4 as uuidv4 } from "uuid";
 import { error } from "console";
 
-const detailsFilePath = "./details.json";
-const errorFilePath = "./error.txt";
-const empInfo = getDetails();
+const DETAILSFILEPATH = "./details.json";
+const ERRORFILEPATH = "./error.txt";
+const empInfos = getDetails();
 console.log("welcome");
 const startTime = new Date().getMinutes();
 showOptions();
@@ -56,20 +56,20 @@ function addEmployeeDetails() {
     const age = getAge(empDOB);
     const details = {
       empId: uuidv4(),
-      empName: empName,
-      empDOB: empDOB,
-      empDepartment: empDepartment,
+      empName,
+      empDOB,
+      empDepartment,
       empAge: age,
     };
-    const employeeIndex = empInfo.findIndex(
+    const employeeIndex = empInfos.findIndex(
       (obj) => obj.empName === details.empName
     );
     if (employeeIndex !== -1) {
       console.log("empName Exist");
       showOptions();
     }
-    empInfo.push(details);
-    addDetails(empInfo);
+    empInfos.push(details);
+    addDetails(empInfos);
     console.log("Employee details added successfully");
     showOptions();
   } catch (error) {
@@ -88,7 +88,7 @@ function getAge(DOB) {
 
 function getDetails() {
   try {
-    const data = fs.readFileSync(detailsFilePath, "utf8");
+    const data = fs.readFileSync(DETAILSFILEPATH, "utf8");
     return JSON.parse(data);
   } catch (error) {
     console.log(`error occurred while taking details ${error.message}`);
@@ -96,9 +96,9 @@ function getDetails() {
   }
 }
 
-function addDetails(empInfo) {
+function addDetails(empInfos) {
   try {
-    fs.writeFileSync(detailsFilePath, JSON.stringify(empInfo));
+    fs.writeFileSync(DETAILSFILEPATH, JSON.stringify(empInfos));
   } catch {
     errorWriting(error);
     console.log(
@@ -112,13 +112,13 @@ function errorWriting(error) {
   today.setTime(today.getTime());
   const currentTime = today.toUTCString();
   const errorDetails = `${error.message}----time:${currentTime}\n`;
-  fs.appendFileSync(errorFilePath, errorDetails);
+  fs.appendFileSync(ERRORFILEPATH, errorDetails);
 }
 
 function updateEmployeeDetails() {
   try {
     const empId = readlineSync.question("Please enter the employee id");
-    const updatedEmployee = empInfo.find(
+    const updatedEmployee = empInfos.find(
       (employee) => employee.empId === empId
     );
     if (updatedEmployee) {
@@ -136,7 +136,7 @@ function updateEmployeeDetails() {
       updatedEmployee.empName = updatedName;
       updatedEmployee.empDOB = updatedDOB;
       updatedEmployee.empDepartment = updatedDepartment;
-      addDetails(empInfo);
+      addDetails(empInfos);
       console.log("Employee details updated successfully");
       showOptions();
     }
@@ -151,12 +151,12 @@ function updateEmployeeDetails() {
 function deleteEmployeeDetails() {
   try {
     const empId = readlineSync.question("Please enter employee id");
-    const employeeIndex = empInfo.findIndex(
+    const employeeIndex = empInfos.findIndex(
       (employee) => employee.empId === empId
     );
     if (employeeIndex !== -1) {
-      empInfo.splice(employeeIndex, 1);
-      addDetails(empInfo);
+      empInfos.splice(employeeIndex, 1);
+      addDetails(empInfos);
       console.log("delete employee successfully");
       showOptions();
     }
@@ -171,7 +171,7 @@ function deleteEmployeeDetails() {
 function viewEmployeeDetails() {
   try {
     const empId = readlineSync.question("Please enter employee id");
-    const employee = empInfo.find((employee) => employee.empId === empId);
+    const employee = empInfos.find((employee) => employee.empId === empId);
     if (!employee) {
       console.log("No employee exist");
       showOptions();
@@ -190,7 +190,7 @@ function viewDepartmentDetails() {
       "Please enter employee department"
     );
     let count = 0;
-    empInfo.forEach((employee) => {
+    empInfos.forEach((employee) => {
       if (employee.empDepartment === empDepartment) {
         console.log(employee);
         count++;
